@@ -28,7 +28,7 @@
             opacity: 0; /* Make the button fully transparent */
         }
         #guessButtons {			
-			margin-top: 50px; /* Add space between Generate button and Guess buttons */            
+			margin-top: 200px; /* Add space between Generate button and Guess buttons */            
 			display: flex; /* Use flexbox layout */
 			justify-content: space-around; /* Spread buttons with even space around */
 			width: 100%; /* Ensure container takes full width */
@@ -39,8 +39,8 @@
 			margin: 0px 30px; /* Increase horizontal space between buttons */
 			padding: 50px 20px; /* Default padding */
 			font-size: 16px; /* Default font size */
-			border: 2px solid #CCE5FF; /* Set the border color */
-			background-color: #CCE5FF; /* Set the background to the same color as the border */
+			border: 2px solid white; 
+			background-color: white;
 			color: #CCE5FF; /* Change the text color to make it visible */
 			font-weight: bold; /* Bold text */
 			transition: background-color 0.3s ease; /* Smooth transition for hover effect */
@@ -96,7 +96,10 @@
             }
             #generateButton, #guessButtons button, #clearButton, #showButton, #hideButton {
                 padding: 15px 25px; /* Larger padding for mobile */
-                font-size: 18px; /* Larger font size for mobile */
+                font-size: 14px; /* Larger font size for mobile */
+				border: 2px solid white; 
+				background-color: white;
+				color: #CCE5FF;
             }			
 			#guessCount {
                 bottom: 100px; /* Larger bottom margin for mobile */
@@ -108,10 +111,10 @@
     </style>
 </head>
 <body>
-    <h1 id="title">Random Number Generator</h1>
+    <h2 id="title" style="color: #CCE5FF;">Here you are</h1>
     <p id="randomNumber"></p>
     <div id="generateButtonContainer">
-        <button id="generateButton" onclick="generateRandomNumber()">Generate Random Number</button>
+        <button id="generateButton" onclick="generateRandomNumber()">Catch your feeling</button>
     </div>
     <div id="guessButtons" style="display:none;">
         <button onclick="storeGuess(0)">			

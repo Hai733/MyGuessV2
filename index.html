@@ -28,7 +28,7 @@
             opacity: 0; /* Make the button fully transparent */
         }
         #guessButtons {			
-			margin-top: 200px; /* Add space between Generate button and Guess buttons */            
+			margin-top: 170px; /* Add space between Generate button and Guess buttons */            
 			display: flex; /* Use flexbox layout */
 			justify-content: space-around; /* Spread buttons with even space around */
 			width: 100%; /* Ensure container takes full width */
@@ -130,8 +130,8 @@
     <p id="results"></p>
     <p id="guesses"></p>
     <p id="matches"></p>	
-	<p id="guessCount">You have guessed 0 times</p>
-	<p id="lastGeneratedDate">date1 to date2</p>
+	<p id="guessCount" style="color: #CCE5FF;">You have guessed 0 times</p>
+	<p id="lastGeneratedDate" style="color: #CCE5FF;">date1 to date2</p>
     <script>
         let guessCount = 0;
         let randomNumber = -1;

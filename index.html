@@ -3,6 +3,8 @@
 <head>
     <title>Random Generator - Version 2</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
     <style>
         body {
             text-align: center; /* Center align everything within the body */
@@ -26,24 +28,36 @@
             opacity: 0; /* Make the button fully transparent */
         }
         #guessButtons {			
-            margin-top: 50px; /* Add space between Generate button and Guess buttons */
-            display: none;
-        }
-        #guessButtons button {
-            display: inline-block; /* Ensure buttons are inline, side by side */
-            margin: 10px auto; /* Center align with auto margins */
-            padding: 50px 20px; /* Default padding */
-            font-size: 16px; /* Default font size */
+			margin-top: 50px; /* Add space between Generate button and Guess buttons */            
+			display: flex; /* Use flexbox layout */
+			justify-content: space-around; /* Spread buttons with even space around */
+			width: 100%; /* Ensure container takes full width */
+		}
+
+		#guessButtons button {
+			display: inline-block; /* Ensure buttons are inline, side by side */
+			margin: 0px 30px; /* Increase horizontal space between buttons */
+			padding: 50px 20px; /* Default padding */
+			font-size: 16px; /* Default font size */
 			border: 2px solid #CCE5FF; /* Set the border color */
 			background-color: #CCE5FF; /* Set the background to the same color as the border */
 			color: #CCE5FF; /* Change the text color to make it visible */
 			font-weight: bold; /* Bold text */
 			transition: background-color 0.3s ease; /* Smooth transition for hover effect */
-        }
+		}
+
 		#guessButtons button:hover {
 			background-color: #005f7f; /* Darker shade on hover */
 			border-color: #005f7f; /* Change border to match the new background color */
 		}
+        .star-icon {
+            font-size: 3rem; /* Make the star 3 times larger than default */
+            color: red !important; /* Force the color to red */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
         #clearButton, #showButton, #hideButton {
             position: fixed;
             bottom: 10px;
@@ -100,11 +114,11 @@
         <button id="generateButton" onclick="generateRandomNumber()">Generate Random Number</button>
     </div>
     <div id="guessButtons" style="display:none;">
-        <button onclick="storeGuess(0)" style="font-weight: small;">
-            I knew it's  <span style="font-weight: bold; font-size: 20px">0</span>
+        <button onclick="storeGuess(0)">			
+            <span class="star-icon"><i class="fas fa-star"></i></span>
         </button>
-        <button onclick="storeGuess(1)" style="font-weight: small;">
-            I knew it's  <span style="font-weight: bold; font-size: 20px">1</span>
+        <button onclick="storeGuess(1)" >			
+            <span class="star-icon"><i class="fas fa-star"></i></span>
         </button>
     </div>
     <button id="clearButton" onclick="confirmClearResults()">Reset All</button>
@@ -206,84 +220,60 @@
         }
 
         function showResults() {
-            document.getElementById('hideButton').style.display = 'block';
-            document.getElementById('showButton').style.display = 'none';
+            document.getElementById('results').style.display = 'block';
+            document.getElementById('guesses').style.display = 'block';
+            document.getElementById('matches').style.display = 'block';
             displayResults();
             displayGuesses();
             displayMatching();
         }
 
         function hideResults() {
-            document.getElementById('results').innerText = '';
-            document.getElementById('guesses').innerText = '';
-            document.getElementById('matches').innerText = '';
-            document.getElementById('hideButton').style.display = 'none';
-            document.getElementById('showButton').style.display = 'block';
+            document.getElementById('results').style.display = 'none';
+            document.getElementById('guesses').style.display = 'none';
+            document.getElementById('matches').style.display = 'none';
         }
 
-        function clearResults() {
+        function confirmShowResults() {
+            showResults();
+            document.getElementById('showButton').style.display = 'none';
+            document.getElementById('hideButton').style.display = 'block';
+        }
+
+        function confirmClearResults() {
+            // Reset local storage data and hide displayed elements
             localStorage.removeItem('results');
             localStorage.removeItem('guesses');
             localStorage.removeItem('guessCount');
             localStorage.removeItem('beginDate');
             localStorage.removeItem('toDate');
-            document.getElementById('results').innerText = '';
-            document.getElementById('guesses').innerText = '';
-            document.getElementById('matches').innerText = '';
-            document.getElementById('randomNumber').innerText = '';
             guessCount = 0;
+            randomNumber = -1;
+            beginDate = null;
+            toDate = null;
+
             document.getElementById('guessCount').innerText = 'You have guessed 0 times';
-            document.getElementById('lastGeneratedDate').innerText = '';
+            document.getElementById('lastGeneratedDate').innerText = 'date1 to date2';
+
+            hideResults();
         }
 
         function updateStoreDates() {
-            if (guessCount === 0) {
-                document.getElementById('lastGeneratedDate').innerText = '';
-            } else {
-                if (beginDate) {
-                    const dateStored = new Date(beginDate);
-                    const formattedDate = String(dateStored.getMonth() + 1).padStart(2, '0') + '/' +
-                        String(dateStored.getDate()).padStart(2, '0') + ' ' +
-                        String(dateStored.getHours()).padStart(2, '0') + ':' +
-                        String(dateStored.getMinutes()).padStart(2, '0');
-                    document.getElementById('lastGeneratedDate').innerText = formattedDate;
-
-                    if (toDate) {
-                        const toDateStored = new Date(toDate);
-                        const formattedToDate = String(toDateStored.getMonth() + 1).padStart(2, '0') + '/' +
-                            String(toDateStored.getDate()).padStart(2, '0') + ' ' +
-                            String(toDateStored.getHours()).padStart(2, '0') + ':' +
-                            String(toDateStored.getMinutes()).padStart(2, '0');
-                        document.getElementById('lastGeneratedDate').innerText += '-' + formattedToDate;
-                    }
-                }
+            beginDate = new Date(localStorage.getItem('beginDate'));
+            toDate = new Date(localStorage.getItem('toDate'));
+            if (beginDate && toDate) {
+                document.getElementById('lastGeneratedDate').innerText = `${beginDate.toLocaleDateString()} to ${toDate.toLocaleDateString()}`;
             }
         }
 
-        function checkStoredResults() {
-            beginDate = localStorage.getItem('beginDate');
-            toDate = localStorage.getItem('toDate');
-            let storedGuessCount = localStorage.getItem('guessCount');
-            guessCount = storedGuessCount !== null ? parseInt(storedGuessCount) : 0;
+        // Load stored data when the page loads
+        window.onload = function() {
+            // Retrieve guess count from localStorage
+            guessCount = parseInt(localStorage.getItem('guessCount')) || 0;
             document.getElementById('guessCount').innerText = 'You have guessed ' + guessCount + ' times';
 
             updateStoreDates();
-        }
-		
-		function confirmClearResults() {
-            if (confirm("Are you sure you want to reset all data?")) {
-                clearResults();
-            }
-        }
-
-        function confirmShowResults() {
-            if (confirm("Are you sure you want to show results?")) {
-                showResults();
-            }
-        }
-		
-        // Check if there's a stored results array on page load
-        window.onload = checkStoredResults;
+        };
     </script>
 </body>
 </html>

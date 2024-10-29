@@ -39,8 +39,8 @@
 			margin: 0px 25px; /* Increase horizontal space between buttons */
 			padding: 50px 20px; /* Default padding */
 			font-size: 12px; /* Default font size */
-			border: 2px solid white; 
-			background-color: white;
+			border: 2px solid black; 
+			background-color: black;
 			color: #CCE5FF; /* Change the text color to make it visible */
 			font-weight: bold; /* Bold text */
 			transition: background-color 0.3s ease; /* Smooth transition for hover effect */
@@ -52,7 +52,7 @@
 		}
         .star-icon {
             font-size: 1.5rem; /* Make the star 1.5 times larger than default */
-            color: black !important;
+            color: white !important;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -97,8 +97,8 @@
             #generateButton, #guessButtons button, #clearButton, #showButton, #hideButton {
                 padding: 10px 20px; /* Larger padding for mobile */
                 font-size: 12px; /* Larger font size for mobile */
-				border: 2px solid white; 
-				background-color: white;
+				border: 2px solid black; 
+				background-color: black;
 				color: #CCE5FF;
             }			
 			#guessCount {
@@ -110,7 +110,7 @@
         }
     </style>
 </head>
-<body>
+<body style="background-color:black">
     <h2 id="title" style="color: #CCE5FF;">Here you are</h1>
     <p id="randomNumber"></p>
     <div id="generateButtonContainer">
@@ -120,8 +120,11 @@
         <button onclick="storeGuess(0)">			
             <span class="star-icon"><i class="fas fa-star"></i></span>
         </button>
-		<button">			
-            <span><i style="color:white">separator</i></span>
+		<button">
+            <span><i style="color:black">star.....</i></span>
+        </button>
+		<button">
+            <span><i style="color:black">star.....</i></span>
         </button>
         <button onclick="storeGuess(1)" >			
             <span class="star-icon"><i class="fas fa-star"></i></span>
